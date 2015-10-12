@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wiki Contents</title>
+    <link rel="stylesheet" href="/static/css/foundation.css" />
+    <script src="/static/js/vendor/modernizr.js"></script>
+   </head>
+ <body>
+        <div>
+          Welcome! This is a page to help you know the table of contents of a wikipedia article!
+        </div>
+        <div style="margin-top:20px;">
+          <form action="." method="POST">
+
+            <div>
+              <div>
+                <label>Enter Wikipedia URL</label>
+                <input type="url" name="url" id="url" required/>
+              </div>
+            </div>
+            <div>
+              <div>
+                  <input type="submit" class="button success" value="Submit" id='submit'>
+                  <input type="reset" class="button tiny secondary" value="Clear">
+                  <a href="/"> Refresh </a>
+              </div>
+            </div>
+          </form>
+        </div>
+    {% if searched %}
+    <hr>
+    <div>
+      <div>
+        <div>
+          <div>
+            {% if not h2s and searched  %}
+              {% if status %}
+              <div data-alert>
+                The resource, <a href="{{query}}" target="new">{{query}}</a>, you requested for, please give a valid Wikipedia url and try again!
+                <a href="#" class="close">&times;</a>
+              </div>
+              {% else %}
+              <div>
+                Sorry! Try again with a valid wikipedia url. You requested for this page, <a href="{{query}}" target="new">{{query}}</a>
+                <a href="#">&times;</a>
+              </div>
+              {% endif %}
+            {% endif %}
+          </div>
+          {% if extract %}
+            <h3>Congrats it worked!</h3>
+            <h6>The Table of Contents from the wikpedia page, {{query}}</h6>
+            {% else %}
+            <h3>Table of Contents</h3>
+            <h6>The Table of Contents from the article you input above will show below</h6>
+          {% endif %}
+        </div>
+        <div>
+        {% if extract %}
+        <h5>Scraped HTML</h5>
+          <ul>
+            {% for i in extract %}
+                <li>{{ i }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div>
+            Nothing to display yet.
+          </div>
+        {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <script src="/static/js/vendor/jquery.js"></script>
+    <script src="/static/js/foundation/foundation.js"></script>
+    <script src="/static/js/foundation/foundation.topbar.js"></script>
+    <script src="/static/js/foundation/foundation.alert.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
